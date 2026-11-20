@@ -1,6 +1,6 @@
 /* ==========================================================================
    iOS APP STYLE DESIGN SYSTEM - FLAT, CLEAN, ZERO SHADOWS
-   Designed for Mobile & Desktop Study Portal
+   High-Speed Loading & Student-Friendly Learning Edition
    ========================================================================== */
 
 :root {
@@ -125,6 +125,30 @@ button {
   cursor: pointer;
   border: none;
   background: none;
+}
+
+/* Touch optimization: Eliminate 300ms mobile tap delay */
+button, a, .quiz-opt-btn, .quiz-reveal-btn, .ios-tab-item, .ios-segment-btn {
+  touch-action: manipulation;
+}
+
+/* ==========================================================================
+   HIGH-SPEED RENDERING OPTIMIZATIONS
+   ========================================================================== */
+
+.unit-card {
+  background: #FFFFFF;
+  border: 1px solid var(--ios-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 24px;
+  overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: 850px;
+}
+
+/* Keep Unit 1 visible immediately for 0ms First Contentful Paint */
+#unit1 {
+  content-visibility: visible;
 }
 
 /* ==========================================================================
@@ -355,28 +379,81 @@ button {
   color: var(--text-placeholder);
 }
 
+.search-results-count {
+  display: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ios-blue);
+  margin-top: 10px;
+}
+
 /* ==========================================================================
-   PROGRESS BAR
+   STUDENT PROGRESS & SCORECARD
    ========================================================================== */
 
 .ios-progress-card {
   background: #FFFFFF;
   border: 1px solid var(--ios-border);
   border-radius: var(--radius-md);
-  padding: 14px 18px;
+  padding: 16px 20px;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .ios-progress-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 13px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.scorecard-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.score-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.student-score-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+  background: #EBF5FF;
+  color: #007AFF;
+  border: 1px solid #BFDBFE;
+}
+
+.student-score-badge.mastered {
+  background: #ECFDF5;
+  color: #059669;
+  border-color: #A7F3D0;
+}
+
+.btn-reset-quiz {
+  font-size: 12px;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--ios-blue);
+  background: #F2F2F7;
+  border: 1px solid var(--ios-border);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  transition: all 0.15s ease;
+}
+
+.btn-reset-quiz:hover {
+  background: #E5E5EA;
 }
 
 .ios-progress-bar-bg {
@@ -397,14 +474,6 @@ button {
 /* ==========================================================================
    SECTION COLOR CARDS (DISTINCT UNIT COLORS)
    ========================================================================== */
-
-.unit-card {
-  background: #FFFFFF;
-  border: 1px solid var(--ios-border);
-  border-radius: var(--radius-lg);
-  margin-bottom: 24px;
-  overflow: hidden;
-}
 
 .unit-header {
   padding: 18px 20px;
@@ -469,6 +538,37 @@ button {
 
 .unit-body {
   padding: 20px;
+}
+
+/* ==========================================================================
+   STUDENT FLASH TERMS PILL ROW (QUICK REVISION)
+   ========================================================================== */
+
+.flash-terms-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--ios-border);
+}
+
+.flash-term-pill {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--radius-pill);
+  padding: 5px 11px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #334155;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.flash-term-pill strong {
+  color: var(--text-primary);
+  font-weight: 700;
 }
 
 /* ==========================================================================
@@ -539,7 +639,7 @@ button {
 }
 
 /* ==========================================================================
-   DIAGRAM FIGURE CONTAINER (WITH ATTRIBUTION)
+   DIAGRAM FIGURE CONTAINER (ZERO LAYOUT SHIFT)
    ========================================================================== */
 
 .diagram-figure {
@@ -555,11 +655,17 @@ button {
   width: 100%;
   max-width: 850px;
   height: auto;
+  aspect-ratio: 1485 / 885;
   border-radius: 8px;
   border: 1px solid var(--ios-border);
   display: block;
   margin: 0 auto;
   cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.diagram-img:hover {
+  opacity: 0.95;
 }
 
 .diagram-caption {
@@ -856,6 +962,45 @@ button {
 }
 
 /* ==========================================================================
+   STUDENT QUIZ PRACTICE MODE (FILTER FOCUS)
+   ========================================================================== */
+
+body.quiz-focus-mode .beginner-explanation,
+body.quiz-focus-mode .analogy-box,
+body.quiz-focus-mode .code-wrapper,
+body.quiz-focus-mode .output-container,
+body.quiz-focus-mode .pro-tip-box,
+body.quiz-focus-mode .diagram-figure,
+body.quiz-focus-mode .flash-terms-row,
+body.quiz-focus-mode .qb-card {
+  display: none !important;
+}
+
+body.quiz-focus-mode .unit-body {
+  padding: 10px 16px;
+}
+
+body.quiz-focus-mode .topic-box {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+body.quiz-focus-mode .topic-header {
+  display: none;
+}
+
+/* ==========================================================================
+   HIGH-YIELD REVISION MODE
+   ========================================================================== */
+
+body.high-yield-active .beginner-explanation,
+body.high-yield-active .analogy-box,
+body.high-yield-active .output-container {
+  display: none !important;
+}
+
+/* ==========================================================================
    QUESTION BANK / CASE STUDIES
    ========================================================================== */
 
@@ -865,6 +1010,8 @@ button {
   border-radius: var(--radius-lg);
   padding: 22px;
   margin-bottom: 20px;
+  content-visibility: auto;
+  contain-intrinsic-size: 400px;
 }
 
 .qb-badge {
@@ -1080,7 +1227,7 @@ button {
    ========================================================================== */
 
 @media print {
-  .ios-navbar, .ios-segmented-wrapper, .ios-bottom-bar, .btn-copy, .quiz-reveal-btn, .ios-modal {
+  .ios-navbar, .ios-segmented-wrapper, .ios-bottom-bar, .btn-copy, .quiz-reveal-btn, .ios-modal, .btn-reset-quiz {
     display: none !important;
   }
   body {
@@ -1091,6 +1238,7 @@ button {
   .unit-card, .topic-box, .quiz-card {
     page-break-inside: avoid;
     border: 1px solid #CCCCCC !important;
+    content-visibility: visible !important;
   }
   .quiz-answer-content {
     display: block !important;

@@ -1,6 +1,7 @@
 /* ==========================================================================
    iOS APP STUDY ENGINE - JAVASCRIPT
-   Clean, Fast, Responsive Interaction with Zero Emojis
+   High-Speed Loading & Student-Friendly Learning Engine
+   Zero Emojis - Pure Performance
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,11 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
   initDiagramModal();
   initCodeCopy();
   initSearch();
-  initProgressTracker();
+  initHighYieldToggle();
+  initResetQuizButton();
+  restoreQuizProgress();
 });
 
 // ==============================================================================
-// 1. QUIZ & KNOWLEDGE CHECK ENGINE
+// 1. QUIZ & KNOWLEDGE CHECK ENGINE (STUDENT LEARNING SCORECARD)
 // ==============================================================================
 function initQuizInteractions() {
   // Option button click handler (Instant correct/wrong feedback)
@@ -27,12 +30,12 @@ function initQuizInteractions() {
       // Clear previous states in this quiz card
       allOptions.forEach(opt => {
         opt.classList.remove('correct', 'wrong');
-        opt.disabled = true; // disable after answer
+        opt.disabled = true; // disable options after answering
       });
 
       if (isCorrect) {
         this.classList.add('correct');
-        markQuizAnswered(parentCard, true);
+        markQuizAnswered(parentCard, true, this);
       } else {
         this.classList.add('wrong');
         // Highlight correct option
@@ -41,7 +44,7 @@ function initQuizInteractions() {
             opt.classList.add('correct');
           }
         });
-        markQuizAnswered(parentCard, false);
+        markQuizAnswered(parentCard, false, this);
       }
 
       // Automatically reveal answer explanation
@@ -75,16 +78,110 @@ function initQuizInteractions() {
   });
 }
 
-function markQuizAnswered(card, isCorrect) {
+function markQuizAnswered(card, isCorrect, clickedBtn) {
   const quizId = card.id || ('quiz_' + Math.random().toString(36).substr(2, 6));
   let saved = JSON.parse(localStorage.getItem('ios_quiz_progress') || '{}');
-  saved[quizId] = isCorrect ? 'correct' : 'wrong';
+  
+  // Find index of clicked option to restore on reload
+  const allBtns = Array.from(card.querySelectorAll('.quiz-opt-btn'));
+  const clickedIndex = clickedBtn ? allBtns.indexOf(clickedBtn) : -1;
+
+  saved[quizId] = {
+    status: isCorrect ? 'correct' : 'wrong',
+    selectedIndex: clickedIndex
+  };
   localStorage.setItem('ios_quiz_progress', JSON.stringify(saved));
   updateProgressDisplay();
 }
 
+function restoreQuizProgress() {
+  const saved = JSON.parse(localStorage.getItem('ios_quiz_progress') || '{}');
+  
+  Object.keys(saved).forEach(quizId => {
+    const card = document.getElementById(quizId);
+    if (!card) return;
+
+    const data = saved[quizId];
+    const allBtns = card.querySelectorAll('.quiz-opt-btn');
+    allBtns.forEach(btn => btn.disabled = true);
+
+    if (data.selectedIndex >= 0 && allBtns[data.selectedIndex]) {
+      if (data.status === 'correct') {
+        allBtns[data.selectedIndex].classList.add('correct');
+      } else {
+        allBtns[data.selectedIndex].classList.add('wrong');
+        // also highlight correct one
+        allBtns.forEach(btn => {
+          if (btn.getAttribute('data-correct') === 'true') {
+            btn.classList.add('correct');
+          }
+        });
+      }
+    }
+
+    // Reveal explanation
+    const answerContent = card.querySelector('.quiz-answer-content');
+    const revealBtn = card.querySelector('.quiz-reveal-btn');
+    if (answerContent) {
+      answerContent.classList.add('open');
+      if (revealBtn) {
+        revealBtn.innerHTML = '<span>Answer Details</span><span>−</span>';
+      }
+    }
+  });
+
+  updateProgressDisplay();
+}
+
+function initResetQuizButton() {
+  const resetBtn = document.getElementById('resetQuizBtn');
+  if (!resetBtn) return;
+
+  resetBtn.addEventListener('click', () => {
+    localStorage.removeItem('ios_quiz_progress');
+    document.querySelectorAll('.quiz-card').forEach(card => {
+      const btns = card.querySelectorAll('.quiz-opt-btn');
+      btns.forEach(b => {
+        b.disabled = false;
+        b.classList.remove('correct', 'wrong');
+      });
+      const answerContent = card.querySelector('.quiz-answer-content');
+      const revealBtn = card.querySelector('.quiz-reveal-btn');
+      if (answerContent) answerContent.classList.remove('open');
+      if (revealBtn) revealBtn.innerHTML = '<span>Click to reveal answer</span><span>+</span>';
+    });
+    updateProgressDisplay();
+  });
+}
+
+function updateProgressDisplay() {
+  const progressBar = document.getElementById('progressBarFill');
+  const scoreBadge = document.getElementById('studentScoreBadge');
+  if (!progressBar || !scoreBadge) return;
+
+  const totalQuizzes = document.querySelectorAll('.quiz-card').length || 8;
+  const saved = JSON.parse(localStorage.getItem('ios_quiz_progress') || '{}');
+  const answeredKeys = Object.keys(saved);
+  const correctCount = answeredKeys.filter(k => saved[k].status === 'correct').length;
+  const answeredCount = answeredKeys.length;
+
+  const percent = Math.min(100, Math.round((answeredCount / totalQuizzes) * 100));
+  progressBar.style.width = percent + '%';
+
+  if (answeredCount === 0) {
+    scoreBadge.textContent = 'Score: 0 / ' + totalQuizzes + ' (Not Started)';
+    scoreBadge.classList.remove('mastered');
+  } else if (correctCount === totalQuizzes) {
+    scoreBadge.textContent = 'Score: ' + correctCount + ' / ' + totalQuizzes + ' (100% Exam Ready!)';
+    scoreBadge.classList.add('mastered');
+  } else {
+    scoreBadge.textContent = 'Score: ' + correctCount + ' / ' + totalQuizzes + ' (' + Math.round((correctCount/totalQuizzes)*100) + '%)';
+    scoreBadge.classList.remove('mastered');
+  }
+}
+
 // ==============================================================================
-// 2. SEGMENTED CONTROL & SECTION FILTERING
+// 2. SEGMENTED CONTROL & SECTION FILTERING (INCLUDING QUIZ FOCUS MODE)
 // ==============================================================================
 function initSegmentedNavigation() {
   const segmentBtns = document.querySelectorAll('.ios-segment-btn');
@@ -98,6 +195,9 @@ function initSegmentedNavigation() {
 
       const filter = btn.getAttribute('data-filter');
 
+      // Reset any active focus modes first
+      document.body.classList.remove('quiz-focus-mode');
+
       if (filter === 'all') {
         unitCards.forEach(c => c.style.display = 'block');
         qbCards.forEach(c => c.style.display = 'block');
@@ -105,15 +205,11 @@ function initSegmentedNavigation() {
         unitCards.forEach(c => c.style.display = 'block');
         qbCards.forEach(c => c.style.display = 'none');
       } else if (filter === 'quizzes') {
-        // Show unit cards and scroll to quiz or focus quizzes
-        unitCards.forEach(c => {
-          c.style.display = 'block';
-        });
+        // Dedicated Student Quiz Practice Mode!
+        document.body.classList.add('quiz-focus-mode');
+        unitCards.forEach(c => c.style.display = 'block');
         qbCards.forEach(c => c.style.display = 'none');
-        const firstQuiz = document.querySelector('.quiz-card');
-        if (firstQuiz) {
-          firstQuiz.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        window.scrollTo({ top: 180, behavior: 'smooth' });
       } else if (filter === 'diagrams') {
         unitCards.forEach(c => c.style.display = 'block');
         qbCards.forEach(c => c.style.display = 'none');
@@ -170,7 +266,78 @@ function initMobileBottomBar() {
 }
 
 // ==============================================================================
-// 4. DIAGRAM MODAL ZOOM (TAP TO ENLARGE)
+// 4. HIGH-SPEED DEBOUNCED SEARCH FILTER
+// ==============================================================================
+function initSearch() {
+  const searchInput = document.getElementById('searchInput');
+  const countDisplay = document.getElementById('searchResultsCount');
+  if (!searchInput) return;
+
+  let debounceTimer = null;
+
+  searchInput.addEventListener('input', (e) => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      const query = e.target.value.toLowerCase().trim();
+      const unitCards = document.querySelectorAll('.unit-card');
+      const qbCards = document.querySelectorAll('.qb-card');
+
+      if (!query) {
+        unitCards.forEach(c => c.style.display = 'block');
+        qbCards.forEach(c => c.style.display = 'block');
+        if (countDisplay) countDisplay.style.display = 'none';
+        return;
+      }
+
+      let matches = 0;
+
+      unitCards.forEach(card => {
+        const content = card.textContent.toLowerCase();
+        if (content.includes(query)) {
+          card.style.display = 'block';
+          matches++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      qbCards.forEach(card => {
+        const content = card.textContent.toLowerCase();
+        if (content.includes(query)) {
+          card.style.display = 'block';
+          matches++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (countDisplay) {
+        countDisplay.style.display = 'block';
+        countDisplay.textContent = matches === 1 ? 'Found 1 matching study section' : 'Found ' + matches + ' matching study sections';
+      }
+    }, 120); // 120ms debounce prevents CPU stutter on mobile devices
+  });
+}
+
+// ==============================================================================
+// 5. HIGH-YIELD MODE TOGGLE
+// ==============================================================================
+function initHighYieldToggle() {
+  const btn = document.getElementById('highYieldBtn');
+  if (!btn) return;
+
+  btn.addEventListener('click', () => {
+    const isHighYield = document.body.classList.toggle('high-yield-active');
+    if (isHighYield) {
+      btn.classList.add('primary');
+    } else {
+      btn.classList.remove('primary');
+    }
+  });
+}
+
+// ==============================================================================
+// 6. DIAGRAM MODAL ZOOM (TAP TO ENLARGE)
 // ==============================================================================
 function initDiagramModal() {
   const modal = document.getElementById('diagramModal');
@@ -205,7 +372,7 @@ function initDiagramModal() {
 }
 
 // ==============================================================================
-// 5. ONE-CLICK CODE COPY
+// 7. ONE-CLICK CODE COPY
 // ==============================================================================
 function initCodeCopy() {
   document.querySelectorAll('.btn-copy').forEach(btn => {
@@ -224,63 +391,4 @@ function initCodeCopy() {
       });
     });
   });
-}
-
-// ==============================================================================
-// 6. REAL-TIME SEARCH FILTER
-// ==============================================================================
-function initSearch() {
-  const searchInput = document.getElementById('searchInput');
-  if (!searchInput) return;
-
-  searchInput.addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase().trim();
-    const unitCards = document.querySelectorAll('.unit-card');
-    const qbCards = document.querySelectorAll('.qb-card');
-
-    if (!query) {
-      unitCards.forEach(c => c.style.display = 'block');
-      qbCards.forEach(c => c.style.display = 'block');
-      return;
-    }
-
-    unitCards.forEach(card => {
-      const content = card.textContent.toLowerCase();
-      if (content.includes(query)) {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-
-    qbCards.forEach(card => {
-      const content = card.textContent.toLowerCase();
-      if (content.includes(query)) {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  });
-}
-
-// ==============================================================================
-// 7. STUDY PROGRESS TRACKER
-// ==============================================================================
-function initProgressTracker() {
-  updateProgressDisplay();
-}
-
-function updateProgressDisplay() {
-  const progressBar = document.getElementById('progressBarFill');
-  const progressText = document.getElementById('progressPercentText');
-  if (!progressBar || !progressText) return;
-
-  const totalQuizzes = document.querySelectorAll('.quiz-card').length || 8;
-  const saved = JSON.parse(localStorage.getItem('ios_quiz_progress') || '{}');
-  const answeredCount = Object.keys(saved).length;
-
-  const percent = Math.min(100, Math.round((answeredCount / totalQuizzes) * 100));
-  progressBar.style.width = percent + '%';
-  progressText.textContent = percent + '% Complete';
 }

@@ -2,12 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="theme-color" content="#FFFFFF">
   <title>Operating Systems Study Portal - India EXIM Bank Exam Edition</title>
+  
+  <!-- High-Speed Preloading & Rendering Hints -->
+  <link rel="preload" href="css/style.css" as="style">
+  <link rel="preload" href="assets/diagrams/unit1_os_architecture.png" as="image">
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/app.js" defer></script>
 </head>
 <body>
 
@@ -25,7 +30,7 @@
       </div>
 
       <div class="ios-nav-actions">
-        <button class="ios-btn-pill" id="highYieldBtn" onclick="toggleHighYield()" title="Highlight exam formulas and pro tips">
+        <button class="ios-btn-pill" id="highYieldBtn" title="Highlight key exam formulas and pro tips">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
           </svg>
@@ -65,7 +70,7 @@
     <section class="ios-hero-card">
       <div class="ios-badge-row">
         <span class="ios-tag blue">Beginner Friendly</span>
-        <span class="ios-tag green">Mobile Optimized</span>
+        <span class="ios-tag green">High-Speed Load</span>
         <span class="ios-tag orange">Tutorial Diagrams</span>
         <span class="ios-tag purple">Zero Shadows</span>
       </div>
@@ -74,7 +79,7 @@
         Designed for B.Tech graduates and beginner students preparing for India EXIM Bank Specialist Officer (IT). Explained in simple, everyday English with real-world analogies, clean tutorial diagrams, code outputs, and interactive quizzes.
       </p>
 
-      <!-- Instant Search Bar -->
+      <!-- Instant Debounced Search Bar -->
       <div class="ios-search-container">
         <svg class="ios-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="11" cy="11" r="8"></circle>
@@ -82,13 +87,19 @@
         </svg>
         <input type="text" class="ios-search-input" id="searchInput" placeholder="Search topics (e.g. deadlock, paging, round robin, raid, inode)..." aria-label="Search study topics">
       </div>
+      <div id="searchResultsCount" class="search-results-count"></div>
     </section>
 
-    <!-- STUDY & QUIZ PROGRESS TRACKER -->
+    <!-- STUDENT SCORECARD & PROGRESS TRACKER -->
     <div class="ios-progress-card">
       <div class="ios-progress-header">
-        <span>Knowledge Check Progress</span>
-        <span id="progressPercentText">0% Complete</span>
+        <div class="scorecard-left">
+          <span class="score-title">Exam Knowledge Checks</span>
+          <span class="student-score-badge" id="studentScoreBadge">Score: 0 / 8 (Not Started)</span>
+        </div>
+        <button class="btn-reset-quiz" id="resetQuizBtn" title="Reset all answers to practice again">
+          Retake All Quizzes
+        </button>
       </div>
       <div class="ios-progress-bar-bg">
         <div class="ios-progress-bar-fill" id="progressBarFill" style="width: 0%;"></div>
@@ -112,9 +123,17 @@
 
       <div class="unit-body">
         
+        <!-- Student Quick Flash Terms -->
+        <div class="flash-terms-row">
+          <span class="flash-term-pill"><strong>Mode Bit = 1:</strong> User Space (Safe &amp; Restricted)</span>
+          <span class="flash-term-pill"><strong>Mode Bit = 0:</strong> Kernel Space (Privileged Ring 0)</span>
+          <span class="flash-term-pill"><strong>System Call:</strong> Safe bridge asking OS for hardware</span>
+          <span class="flash-term-pill"><strong>Enterprise Stack:</strong> RHEL Linux &amp; IBM AIX at India EXIM Bank</span>
+        </div>
+
         <!-- Tutorial Diagram -->
         <figure class="diagram-figure">
-          <img src="assets/diagrams/unit1_os_architecture.png" alt="Dual-Mode Operation Architecture Diagram" class="diagram-img" loading="lazy">
+          <img src="assets/diagrams/unit1_os_architecture.png" alt="Dual-Mode Operation Architecture Diagram" class="diagram-img" width="1485" height="885" fetchpriority="high" decoding="async">
           <figcaption class="diagram-caption">
             <span>Figure 1.1: Dual-Mode Operation (User Mode vs Kernel Mode)</span>
             <span class="diagram-source">Source: Standard Computer Science Tutorials</span>
@@ -238,9 +257,17 @@ ssize_t bytes_read = read(fd, buffer, <span class="code-keyword">sizeof</span>(b
 
       <div class="unit-body">
 
+        <!-- Student Quick Flash Terms -->
+        <div class="flash-terms-row">
+          <span class="flash-term-pill"><strong>Process:</strong> Full program in RAM with isolated memory</span>
+          <span class="flash-term-pill"><strong>Thread:</strong> Lightweight worker sharing parent memory</span>
+          <span class="flash-term-pill"><strong>PCB:</strong> Stores PID, Program Counter, Registers &amp; Limits</span>
+          <span class="flash-term-pill"><strong>5 States:</strong> New &rarr; Ready &rarr; Running &rarr; Waiting &rarr; Terminated</span>
+        </div>
+
         <!-- Tutorial Diagram -->
         <figure class="diagram-figure">
-          <img src="assets/diagrams/unit2_process_states.png" alt="5-State Process Lifecycle Diagram" class="diagram-img" loading="lazy">
+          <img src="assets/diagrams/unit2_process_states.png" alt="5-State Process Lifecycle Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
           <figcaption class="diagram-caption">
             <span>Figure 2.1: 5-State Process Model (New, Ready, Running, Waiting, Terminated)</span>
             <span class="diagram-source">Source: Standard Computer Science Tutorials</span>
@@ -371,9 +398,17 @@ Both customer payments processed concurrently in 52 ms!</div>
 
       <div class="unit-body">
 
+        <!-- Student Quick Flash Terms -->
+        <div class="flash-terms-row">
+          <span class="flash-term-pill"><strong>FCFS:</strong> Simple queue, suffers from Convoy Effect</span>
+          <span class="flash-term-pill"><strong>Round Robin:</strong> Time Quantum (q = 10-20ms) for high responsiveness</span>
+          <span class="flash-term-pill"><strong>SJF / SRTF:</strong> Optimal waiting time, but starvation risk</span>
+          <span class="flash-term-pill"><strong>Priority + Aging:</strong> Gradually raises priority of waiting tasks</span>
+        </div>
+
         <!-- Tutorial Diagram -->
         <figure class="diagram-figure">
-          <img src="assets/diagrams/unit3_cpu_scheduling.png" alt="CPU Scheduling Gantt Chart Diagram" class="diagram-img" loading="lazy">
+          <img src="assets/diagrams/unit3_cpu_scheduling.png" alt="CPU Scheduling Gantt Chart Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
           <figcaption class="diagram-caption">
             <span>Figure 3.1: CPU Scheduling Comparison (FCFS Convoy Effect vs Round Robin)</span>
             <span class="diagram-source">Source: Standard Computer Science Tutorials</span>
@@ -493,9 +528,17 @@ System responsiveness: Excellent.</div>
 
       <div class="unit-body">
 
+        <!-- Student Quick Flash Terms -->
+        <div class="flash-terms-row">
+          <span class="flash-term-pill"><strong>Race Condition:</strong> Lost updates when 2 threads write concurrently</span>
+          <span class="flash-term-pill"><strong>Mutex Lock:</strong> Guarantees Mutual Exclusion in Critical Section</span>
+          <span class="flash-term-pill"><strong>4 Coffman Conditions:</strong> Mutual Exclusion, Hold &amp; Wait, No Preemption, Circular Wait</span>
+          <span class="flash-term-pill"><strong>Deadlock Prevention:</strong> Strict Lock Ordering (Lock min(A,B) first)</span>
+        </div>
+
         <!-- Tutorial Diagram -->
         <figure class="diagram-figure">
-          <img src="assets/diagrams/unit4_deadlock.png" alt="Deadlock Circular Wait Diagram" class="diagram-img" loading="lazy">
+          <img src="assets/diagrams/unit4_deadlock.png" alt="Deadlock Circular Wait Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
           <figcaption class="diagram-caption">
             <span>Figure 4.1: Deadlock Circular Wait &amp; Resource Ordering Solution</span>
             <span class="diagram-source">Source: Standard Computer Science Tutorials</span>
@@ -625,9 +668,17 @@ Result: Circular Wait cycle broken. 100% Deadlock-Free!</div>
 
       <div class="unit-body">
 
+        <!-- Student Quick Flash Terms -->
+        <div class="flash-terms-row">
+          <span class="flash-term-pill"><strong>Paging:</strong> Fixed 4KB chunks (Virtual Pages &rarr; Physical Frames)</span>
+          <span class="flash-term-pill"><strong>TLB Cache:</strong> On-chip CPU cache translating addresses in ~1 ns</span>
+          <span class="flash-term-pill"><strong>HugePages (2MB):</strong> Expands TLB reach by 512x for Oracle CBS SGA</span>
+          <span class="flash-term-pill"><strong>Thrashing:</strong> Constant page swapping when RAM is starved</span>
+        </div>
+
         <!-- Tutorial Diagram -->
         <figure class="diagram-figure">
-          <img src="assets/diagrams/unit5_paging_tlb.png" alt="Virtual Memory and TLB Diagram" class="diagram-img" loading="lazy">
+          <img src="assets/diagrams/unit5_paging_tlb.png" alt="Virtual Memory and TLB Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
           <figcaption class="diagram-caption">
             <span>Figure 5.1: Virtual Memory Address Translation &amp; TLB Cache Acceleration</span>
             <span class="diagram-source">Source: Standard Computer Science Tutorials</span>
@@ -749,9 +800,17 @@ TLB Coverage: Expanded by 512x! TLB misses dropped to near 0%.</div>
 
       <div class="unit-body">
 
+        <!-- Student Quick Flash Terms -->
+        <div class="flash-terms-row">
+          <span class="flash-term-pill"><strong>Inode:</strong> File metadata record (size, owner, disk blocks)</span>
+          <span class="flash-term-pill"><strong>Journaling:</strong> Write-ahead logging preventing corruption on crash</span>
+          <span class="flash-term-pill"><strong>RAID 10:</strong> Mirrored Stripes: Gold standard for Core Banking OLTP</span>
+          <span class="flash-term-pill"><strong>df -i:</strong> Detects 100% Inode exhaustion even when bytes free</span>
+        </div>
+
         <!-- Tutorial Diagram -->
         <figure class="diagram-figure">
-          <img src="assets/diagrams/unit6_raid_storage.png" alt="RAID Storage Architecture Comparison Diagram" class="diagram-img" loading="lazy">
+          <img src="assets/diagrams/unit6_raid_storage.png" alt="RAID Storage Architecture Comparison Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
           <figcaption class="diagram-caption">
             <span>Figure 6.1: RAID Levels (RAID 0, 1, 5, 10) Architecture Comparison</span>
             <span class="diagram-source">Source: Standard Computer Science Tutorials</span>
@@ -871,9 +930,17 @@ Filesystem                   Inodes  IUsed   IFree IUse% Mounted on
 
       <div class="unit-body">
 
+        <!-- Student Quick Flash Terms -->
+        <div class="flash-terms-row">
+          <span class="flash-term-pill"><strong>Type-1 Hypervisor:</strong> Bare-metal (ESXi, KVM) running guest OS</span>
+          <span class="flash-term-pill"><strong>Containers:</strong> Docker / OpenShift sharing 1 host kernel via cgroups</span>
+          <span class="flash-term-pill"><strong>Split-Brain:</strong> Network partition risking dual-write corruption</span>
+          <span class="flash-term-pill"><strong>STONITH:</strong> Hardware power-fence cutting off disconnected nodes</span>
+        </div>
+
         <!-- Tutorial Diagram -->
         <figure class="diagram-figure">
-          <img src="assets/diagrams/unit7_containers_vms.png" alt="Virtual Machines vs Containers Diagram" class="diagram-img" loading="lazy">
+          <img src="assets/diagrams/unit7_containers_vms.png" alt="Virtual Machines vs Containers Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
           <figcaption class="diagram-caption">
             <span>Figure 7.1: Virtual Machines (Type-1 Hypervisor) vs Containers (Docker / Podman)</span>
             <span class="diagram-source">Source: Standard Computer Science Tutorials</span>
@@ -991,9 +1058,17 @@ Quorum: Active (No Split-Brain Risk).</div>
 
       <div class="unit-body">
 
+        <!-- Student Quick Flash Terms -->
+        <div class="flash-terms-row">
+          <span class="flash-term-pill"><strong>top &amp; vmstat 1:</strong> Instant CPU, memory &amp; run queue diagnosis</span>
+          <span class="flash-term-pill"><strong>iostat -xz 1:</strong> Disk saturation (%util) and I/O bottlenecks</span>
+          <span class="flash-term-pill"><strong>SELinux Enforcing:</strong> Mandatory access control blocking unauthorized privilege</span>
+          <span class="flash-term-pill"><strong>RBI NTP Sync:</strong> Clock drift must remain strictly under 50 ms</span>
+        </div>
+
         <!-- Tutorial Diagram -->
         <figure class="diagram-figure">
-          <img src="assets/diagrams/unit8_linux_architecture.png" alt="Linux System Architecture Layers Diagram" class="diagram-img" loading="lazy">
+          <img src="assets/diagrams/unit8_linux_architecture.png" alt="Linux System Architecture Layers Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
           <figcaption class="diagram-caption">
             <span>Figure 8.1: Linux Operating System Architecture Layers (User to Hardware)</span>
             <span class="diagram-source">Source: Standard Computer Science Tutorials</span>
@@ -1203,28 +1278,5 @@ All RBI IT Governance checks passed successfully.</div>
     </div>
   </nav>
 
-  <script src="js/app.js"></script>
-  <script>
-    function toggleHighYield() {
-      const btn = document.getElementById('highYieldBtn');
-      const isHighYield = document.body.classList.toggle('high-yield-active');
-      if (isHighYield) {
-        btn.classList.add('primary');
-        document.querySelectorAll('.topic-box').forEach(box => {
-          const proTip = box.querySelector('.pro-tip-box');
-          const quiz = box.querySelector('.quiz-card');
-          const code = box.querySelector('.code-wrapper');
-          if (!proTip && !quiz && !code) {
-            box.style.display = 'none';
-          }
-        });
-      } else {
-        btn.classList.remove('primary');
-        document.querySelectorAll('.topic-box').forEach(box => {
-          box.style.display = 'block';
-        });
-      }
-    }
-  </script>
 </body>
 </html>

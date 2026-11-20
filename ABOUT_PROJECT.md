@@ -1,4 +1,4 @@
-# 📘 India EXIM Bank Exam Preparation Portal — Project & Architecture Guide
+#  India EXIM Bank Exam Preparation Portal — Project & Architecture Guide
 
 ## 1. What This Website & Application Is
 This application is a specialized, production-grade examination study portal built specifically for **B.Tech. Computer Science & Engineering (CSE) graduates** preparing for the **Export-Import Bank of India (India EXIM Bank) Specialist Officer / Management Trainee (Digital Technology / IT)** written examination and technical interview.
@@ -26,7 +26,7 @@ Long study sessions demand an ergonomic color palette that minimizes eye strain,
 
 The application provides end-to-end, exam-oriented coverage across all **8 Banking-Focused Units** and the **Practical Exam Question Bank**:
 
-### 🔹 Unit 1: OS Architecture, Kernel Modes & Enterprise Banking OS Stacks
+###  Unit 1: OS Architecture, Kernel Modes & Enterprise Banking OS Stacks
 - 5 Core Functions of an Operating System.
 - Dual-Mode Operation (User Mode Ring 3 vs. Kernel Mode Ring 0), Hardware Mode Bit, and System Calls (`open()`, `read()`, `fork()`, `exec()`).
 - Kernel Architectures: Monolithic (Linux), Microkernel (Mach/QNX), and Hybrid (Windows Server NT) latency vs. fault-isolation trade-offs.
@@ -35,7 +35,7 @@ The application provides end-to-end, exam-oriented coverage across all **8 Banki
   - **IBM z/OS & LinuxONE:** Mainframes at HDFC Bank and SBI for high-volume ledger processing.
   - **Windows Server & Embedded:** Active Directory (IAM) and ATM controllers at Canara Bank and Union Bank of India.
 
-### 🔹 Unit 2: Process Management, Threads & Inter-Process Communication (IPC)
+###  Unit 2: Process Management, Threads & Inter-Process Communication (IPC)
 - 5-State Process Lifecycle (New &rarr; Ready &rarr; Running &rarr; Waiting &rarr; Terminated).
 - Process Control Block (PCB: PID, PC, Registers, Memory limits, Open File Descriptors) and Context Switching overhead.
 - Processes vs. Threads: Shared heap/code vs. isolated stacks; why **SBI Mobile Banking (YONO)** spawns lightweight threads per customer session to conserve RAM during salary-day surges.
@@ -43,7 +43,7 @@ The application provides end-to-end, exam-oriented coverage across all **8 Banki
 - IPC Mechanisms: Shared Memory, Pipes, Sockets, and Message Queues.
 - **HDFC Bank Case:** Asynchronous message queuing via IBM MQ between front-end UPI/NEFT switches and Core Banking settlement.
 
-### 🔹 Unit 3: CPU Scheduling in High-Concurrency Banking Servers
+###  Unit 3: CPU Scheduling in High-Concurrency Banking Servers
 - Scheduling Metrics: CPU Utilization, Throughput (TPS), Turnaround Time, Waiting Time, and Response Time (< 200 ms banking SLAs).
 - FCFS & The Convoy Effect (PNB quarterly audit batch blocking teller inquiries).
 - Shortest Job First (SJF/SRTF) optimality vs. starvation risk.
@@ -51,7 +51,7 @@ The application provides end-to-end, exam-oriented coverage across all **8 Banki
 - Round Robin (RR) and time-quantum ($q$) tuning for branch teller responsiveness.
 - Multilevel Feedback Queue (MLFQ) and modern Linux Completely Fair Scheduler (CFS with `vruntime`) and EEVDF.
 
-### 🔹 Unit 4: Process Synchronization, Concurrency & Deadlocks
+###  Unit 4: Process Synchronization, Concurrency & Deadlocks
 - Race Conditions & Critical Sections: 3 requirements (Mutual Exclusion, Progress, Bounded Waiting).
 - Concrete interleaved debit trace on ICICI corporate account causing a lost update anomaly.
 - Synchronization Primitives: Mutex Locks, Semaphores (wait/signal), Monitors, Spinlocks, and Atomic Hardware primitives (CAS / Test-and-Set).
@@ -59,7 +59,7 @@ The application provides end-to-end, exam-oriented coverage across all **8 Banki
 - Deadlocks & The 4 Coffman Conditions (Mutual Exclusion, Hold and Wait, No Preemption, Circular Wait) illustrated via India EXIM Bank cross-transfer.
 - Deadlock Strategies: Prevention (Global Lock Ordering), Avoidance (Banker's Algorithm modeled after IDBI Bank credit limits), and Detection & Recovery (Wait-For Graph cycle timeouts at Kotak Mahindra Bank).
 
-### 🔹 Unit 5: Memory Management & Virtual Memory
+###  Unit 5: Memory Management & Virtual Memory
 - Contiguous Allocation, Internal vs. External Fragmentation, and Compaction.
 - Paging, Multi-level Page Tables, Translation Lookaside Buffer (TLB), and Effective Access Time (EAT) formula.
 - **Linux HugePages (2 MB / 1 GB):** Why PNB and India EXIM Bank configure HugePages on RHEL for Oracle Shared Global Area (SGA) to slash TLB misses.
@@ -67,7 +67,7 @@ The application provides end-to-end, exam-oriented coverage across all **8 Banki
 - Thrashing & Working Set Model: Resolving HDFC Bank month-end salary thrashing via admission control and `vm.swappiness = 1`.
 - Memory Leaks & Linux OOM Killer: Protecting critical trade-finance JVMs at India EXIM Bank via `oom_score_adj = -1000`.
 
-### 🔹 Unit 6: Storage, File Systems, Disk Scheduling & I/O Management
+###  Unit 6: Storage, File Systems, Disk Scheduling & I/O Management
 - Inodes and Write-Ahead Journaling (WAL) in XFS and ext4: Why Bank of Baroda recovers from power cuts in seconds without ledger corruption.
 - Logical Volume Management (LVM): Physical Volumes (PV) &rarr; Volume Groups (VG) &rarr; Logical Volumes (LV); online zero-downtime storage expansion at ICICI Bank during fiscal year-end closing.
 - Unix permissions (`rwx`, SUID, SGID, Sticky bit) and POSIX ACLs.
@@ -75,7 +75,7 @@ The application provides end-to-end, exam-oriented coverage across all **8 Banki
 - Disk Schedulers: FCFS, SSTF, SCAN, C-SCAN, LOOK vs. NVMe multi-queue schedulers (`none`, `mq-deadline`).
 - Direct Memory Access (DMA) offloading CPU during bulk NEFT file transfers.
 
-### 🔹 Unit 7: Virtualization, Containers & High-Availability OS Clustering
+###  Unit 7: Virtualization, Containers & High-Availability OS Clustering
 - Type-1 Bare-Metal Hypervisors (VMware ESXi, KVM, PowerVM) vs. Type-2 Hosted Hypervisors.
 - Virtual Machines (Hardware isolation) vs. Containers (OS-level isolation via Linux Namespaces and cgroups v2).
 - Deployment Decision: Red Hat OpenShift Containers for Exporter Onboarding APIs vs. Type-1 Bare-Metal VMs for regulated SWIFT messaging gateways.
@@ -83,7 +83,7 @@ The application provides end-to-end, exam-oriented coverage across all **8 Banki
 - Split-Brain Syndrome and catastrophic dual-write ledger corruption at Union Bank of India.
 - Odd-node Quorum voting and automated STONITH ("Shoot The Other Node In The Head") / IPMI power-fencing.
 
-### 🔹 Unit 8: Linux/Unix Administration, OS Hardening & RBI Compliance
+###  Unit 8: Linux/Unix Administration, OS Hardening & RBI Compliance
 - 8 Essential Operational Monitoring Commands: `top`/`htop`, `vmstat`, `iostat`, `ps`/`kill`, `ss`/`netstat`, `df`/`du`, `journalctl`, and `systemd`/`cron`.
 - **RBI Master Directions on IT Governance & Cyber Resilience (4 Pillars):**
   1. *OS Hardening:* CIS benchmarks, disabling root SSH, SELinux in Enforcing mode, ASLR, and DEP/NX.
@@ -91,7 +91,7 @@ The application provides end-to-end, exam-oriented coverage across all **8 Banki
   3. *Access Control & PAM:* Least privilege, RBAC, CyberArk PAM session and video keystroke recording.
   4. *Audit Trails & Time Sync:* Immutable `auditd` logging streamed via TLS to SIEM; NTP clock sync with National Physical Laboratory (NPL) stratum-1 time sources (drift < 50 ms).
 
-### 🔹 Practical Exam Question Bank (100% Bank-Only Examples)
+###  Practical Exam Question Bank (100% Bank-Only Examples)
 - **Section A: Part I Case Studies (40 Marks Each | 45 Mins):**
   - **Case Study 1:** India EXIM Bank Core Infrastructure & OS Modernization (5 sub-questions, 40 marks total).
   - **Case Study 2:** Peak Settlement Day OS Crisis at SBI & HDFC Bank (4 symptoms: Thrashing, Deadlock, OOM Killer, Split-Brain; 4 sub-questions, 40 marks total).
@@ -104,7 +104,7 @@ The application provides end-to-end, exam-oriented coverage across all **8 Banki
 
 ## 4. Key Interactive Application Features
 
-1. **High-Yield Exam Mode (⚡):**
+1. **High-Yield Exam Mode ():**
    - Click the "High-Yield Mode" button in the header to instantly filter the view, highlighting exam formulas, model answers, Linux recovery commands, and key banking takeaways for fast revision.
 2. **Interactive Search & Keyword Filter:**
    - Real-time search box in the sidebar filters across all units and question bank entries for keywords like `HugePages`, `STONITH`, `Belady`, `Banker's`, `LVM`, `auditd`, etc.
@@ -127,9 +127,9 @@ The application has been engineered with a modular, scalable architecture so tha
 In the `<header class="app-header">` section of `index.html`, add your new subject option:
 ```html
 <select class="subject-select" id="subjectSelector">
-  <option value="os">📘 Operating Systems (Active • 8 Units)</option>
-  <option value="dbms">🗄️ Database Management Systems (Active • 8 Units)</option>
-  <option value="cn">🌐 Computer Networks & Security (Upcoming)</option>
+  <option value="os"> Operating Systems (Active • 8 Units)</option>
+  <option value="dbms">️ Database Management Systems (Active • 8 Units)</option>
+  <option value="cn"> Computer Networks & Security (Upcoming)</option>
   <!-- Add new subjects here -->
 </select>
 ```

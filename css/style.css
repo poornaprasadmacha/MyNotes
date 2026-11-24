@@ -1244,3 +1244,35 @@ body.high-yield-active .output-container {
     display: block !important;
   }
 }
+/* ============================= Mobile‑Friendly UI/UX Enhancements ============================= */
+
+/* Responsive typography and spacing for small screens */
+@media (max-width: 600px) {
+  html {font-size: 14px;}
+  .ios-nav-inner {padding: 8px 12px;}
+  .ios-brand-title {font-size: 14px;}
+  .ios-brand-subtitle {font-size: 11px;}
+  .ios-btn-pill {font-size: 12px; padding: 6px 10px;}
+  .ios-segment-btn {font-size: 12px; padding: 6px 10px;}
+  .unit-card {margin-bottom: 16px;}
+  .unit-title {font-size: 18px;}
+  .topic-title {font-size: 15px;}
+  .diagram-img {max-width: 100%; height: auto;}
+}
+
+/* Header collapses on scroll – already toggled via JS */
+.ios-navbar.header-hidden {transform: translateY(-100%); transition: transform 0.3s ease;}
+
+/* Larger tap targets for touch devices */
+button, .ios-btn-pill, .ios-segment-btn, .ios-tab-item {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {transition-duration: 0s !important; animation-duration: 0s !important;}
+}
+
+/* Visible focus outline */
+:focus-visible {outline: 2px solid var(--ios-blue); outline-offset: 2px;}

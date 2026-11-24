@@ -5,6 +5,7 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initScrollHeader();
   initQuizInteractions();
   initSegmentedNavigation();
   initMobileBottomBar();
@@ -198,12 +199,30 @@ function initSegmentedNavigation() {
       // Reset any active focus modes first
       document.body.classList.remove('quiz-focus-mode');
 
+      const mindmapSection = document.getElementById('mindmapsMaster');
       if (filter === 'all') {
+        if (mindmapSection) mindmapSection.style.display = 'block';
         unitCards.forEach(c => c.style.display = 'block');
         qbCards.forEach(c => c.style.display = 'block');
       } else if (filter === 'units') {
+        if (mindmapSection) mindmapSection.style.display = 'none';
         unitCards.forEach(c => c.style.display = 'block');
         qbCards.forEach(c => c.style.display = 'none');
+      } else if (filter === 'mindmaps') {
+        if (mindmapSection) {
+          mindmapSection.style.display = 'block';
+          mindmapSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        unitCards.forEach(c => c.style.display = 'block');
+        qbCards.forEach(c => c.style.display = 'none');
+      } else if (filter === 'flowcharts') {
+        if (mindmapSection) mindmapSection.style.display = 'none';
+        unitCards.forEach(c => c.style.display = 'block');
+        qbCards.forEach(c => c.style.display = 'none');
+        const firstFlow = document.querySelector('.flowchart-container');
+        if (firstFlow) {
+          firstFlow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
       } else if (filter === 'quizzes') {
         // Dedicated Student Quiz Practice Mode!
         document.body.classList.add('quiz-focus-mode');
@@ -391,4 +410,41 @@ function initCodeCopy() {
       });
     });
   });
+}
+
+// ==============================================================================
+// 8. HIGH-PERFORMANCE HEADER VANISH ON SCROLL DOWN (MOBILE OPTIMIZED)
+// ==============================================================================
+function initScrollHeader() {
+  const navbar = document.querySelector('.ios-navbar');
+  if (!navbar) return;
+
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+
+        // Top of page: always show header
+        if (currentScrollY <= 25) {
+          navbar.classList.remove('header-hidden');
+          document.body.classList.remove('header-is-hidden');
+        } else if (currentScrollY > lastScrollY && currentScrollY > 70) {
+          // Scrolling down: hide header to maximize reading space
+          navbar.classList.add('header-hidden');
+          document.body.classList.add('header-is-hidden');
+        } else if (currentScrollY < lastScrollY) {
+          // Scrolling up: reveal header smoothly
+          navbar.classList.remove('header-hidden');
+          document.body.classList.remove('header-is-hidden');
+        }
+
+        lastScrollY = currentScrollY;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
 }

@@ -55,6 +55,8 @@
     <div class="ios-segmented-control">
       <button class="ios-segment-btn active" data-filter="all">All 8 Units</button>
       <button class="ios-segment-btn" data-filter="units">Units Only</button>
+      <button class="ios-segment-btn" data-filter="mindmaps">OS Mindmaps</button>
+      <button class="ios-segment-btn" data-filter="flowcharts">Flowcharts &amp; Cycles</button>
       <button class="ios-segment-btn" data-filter="quizzes">Quizzes &amp; Checks</button>
       <button class="ios-segment-btn" data-filter="diagrams">Diagrams Hub</button>
       <button class="ios-segment-btn" data-filter="questions">Exam Case Studies</button>
@@ -107,6 +109,99 @@
     </div>
 
     <!-- =======================================================================
+         MASTER OPERATING SYSTEM MINDMAPS & HIGH-YIELD ARCHITECTURAL PILLARS
+         ======================================================================= -->
+    <section class="mindmap-master-card" id="mindmapsMaster">
+      <div class="mindmap-header">
+        <span class="ios-tag blue" style="margin-bottom: 8px;">Comprehensive Overview</span>
+        <h2 class="mindmap-title">Operating System Complete Mindmap &amp; Core Pillars</h2>
+        <p class="mindmap-subtitle">
+          High-yield visual roadmap covering all 6 foundational branches of operating systems. Designed for rapid exam revision, architecture visualization, and beginner mastery.
+        </p>
+      </div>
+
+      <div class="mindmap-grid">
+        <!-- Pillar 1 -->
+        <div class="mindmap-pillar-card" style="--pillar-color: #4F46E5; --pillar-bg: #EEF2FF;">
+          <div class="pillar-header">
+            <span class="pillar-title">1. Kernel &amp; Architecture</span>
+            <span class="pillar-badge">Unit 01</span>
+          </div>
+          <div class="pillar-branches">
+            <div class="pillar-branch-item"><span class="pillar-dot"></span><span><strong>Dual-Mode:</strong> User Mode (Bit 1) vs Privileged Kernel Mode (Bit 0).</span></div>
+            <div class="pillar-branch-item"><span class="pillar-dot"></span><span><strong>System Calls:</strong> Trap 0x80 gate for hardware access (read, write, fork).</span></div>
+            <div class="pillar-branch-item"><span class="pillar-dot"></span><span><strong>Kernel Types:</strong> Monolithic (Linux fast) vs Microkernel (Mach secure).</span></div>
+          </div>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="mindmap-pillar-card" style="--pillar-color: #0D9488; --pillar-bg: #F0FDFA;">
+          <div class="pillar-header">
+            <span class="pillar-title">2. Process &amp; Threads</span>
+            <span class="pillar-badge">Unit 02</span>
+          </div>
+          <div class="pillar-branches">
+            <div class="pillar-branch-item"><span class="pillar-dot"></span><span><strong>Life Cycle:</strong> New -&gt; Ready -&gt; Running -&gt; Waiting -&gt; Terminated.</span></div>
+            <div class="pillar-branch-item"><span class="pillar-dot"></span><span><strong>PCB:</strong> Process Control Block stores PID, PC, Registers, Open Files.</span></div>
+            <div class="pillar-branch-item"><span class="pillar-dot"></span><span><strong>Threads:</strong> Lightweight execution units sharing heap, code, and global data.</span></div>
+          </div>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="mindmap-pillar-card" style="--pillar-color: #EA580C; --pillar-bg: #FFF7ED;">
+          <div class="pillar-header">
+            <span class="pillar-title">3. CPU Scheduling</span>
+            <span class="pillar-badge">Unit 03</span>
+          </div>
+          <div class="pillar-branches">
+            <div class="pillar-branch-item"><span class="pillar-dot"></span><span><strong>Gantt Charts:</strong> Timeline tracking process start and completion times.</span></div>
+            <div class="pillar-branch-item"><span class="pillar-dot"></span><span><strong>Algorithms:</strong> FCFS, Shortest Job First (SJF), Shortest Remaining Time (SRTF).</span></div>
+            <div class="pillar-branch-item"><span class="pillar-dot"></span><span><strong>Round Robin:</strong> Time Quantum Q prevents CPU monopolization.</span></div>
+          </div>
+        </div>
+
+        <!-- Pillar 4 -->
+        <div class="mindmap-pillar-card" style="--pillar-color: #E11D48; --pillar-bg: #FFF1F2;">
+          <div class="pillar-header">
+            <span class="pillar-title">4. Sync &amp; Deadlocks</span>
+            <span class="pillar-badge">Unit 04</span>
+          </div>
+          <div class="pillar-branches">
+            <div class="pillar-branch-item"><span class="pillar-dot"></span><span><strong>Critical Section:</strong> Mutual Exclusion, Progress, Bounded Waiting.</span></div>
+            <div class="pillar-branch-item"><span class="pillar-dot"></span><span><strong>Coffman Conditions:</strong> Mutual Exclusion, Hold &amp; Wait, No Preemption, Circular Wait.</span></div>
+            <div class="pillar-branch-item"><span class="pillar-dot"></span><span><strong>Banker's Algorithm:</strong> Safe sequence check (Need &lt;= Available).</span></div>
+          </div>
+        </div>
+
+        <!-- Pillar 5 -->
+        <div class="mindmap-pillar-card" style="--pillar-color: #7C3AED; --pillar-bg: #FAF5FF;">
+          <div class="pillar-header">
+            <span class="pillar-title">5. Memory &amp; Paging</span>
+            <span class="pillar-badge">Unit 05</span>
+          </div>
+          <div class="pillar-branches">
+            <div class="pillar-branch-item"><span class="pillar-dot"></span><span><strong>Address Mapping:</strong> Logical Address (Page Number + Offset) -&gt; Physical Frame.</span></div>
+            <div class="pillar-branch-item"><span class="pillar-dot"></span><span><strong>TLB Cache:</strong> Hardware buffer slashing 2-memory-access penalty.</span></div>
+            <div class="pillar-branch-item"><span class="pillar-dot"></span><span><strong>Page Fault Cycle:</strong> Valid bit 0 -&gt; Trap -&gt; Swap In -&gt; Restart Instruction.</span></div>
+          </div>
+        </div>
+
+        <!-- Pillar 6 -->
+        <div class="mindmap-pillar-card" style="--pillar-color: #0284C7; --pillar-bg: #F0F9FF;">
+          <div class="pillar-header">
+            <span class="pillar-title">6. Storage, RAID &amp; File Systems</span>
+            <span class="pillar-badge">Units 06 &amp; 08</span>
+          </div>
+          <div class="pillar-branches">
+            <div class="pillar-branch-item"><span class="pillar-dot"></span><span><strong>Hierarchy:</strong> CPU Registers (1ns) -&gt; Cache -&gt; RAM (60ns) -&gt; NVMe/SSD -&gt; Disk.</span></div>
+            <div class="pillar-branch-item"><span class="pillar-dot"></span><span><strong>RAID Levels:</strong> RAID 0 (Speed), RAID 1 (Mirror), RAID 5 (Distributed Parity).</span></div>
+            <div class="pillar-branch-item"><span class="pillar-dot"></span><span><strong>Linux Inodes:</strong> Metadata pointers to physical disk blocks.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
          UNIT 1: OS ARCHITECTURE & KERNEL MODES (INDIGO THEME)
          ======================================================================= -->
     <article class="unit-card theme-u1" id="unit1">
@@ -133,7 +228,7 @@
 
         <!-- Tutorial Diagram -->
         <figure class="diagram-figure">
-          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Operating_system_placement.svg" alt="Dual-Mode Operation Architecture Diagram" class="diagram-img" width="1485" height="885" fetchpriority="high" decoding="async">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Operating_system_placement.svg" onerror="this.onerror=null; this.src='assets/diagrams/unit1_os_architecture.png'" alt="Dual-Mode Operation Architecture Diagram" class="diagram-img" width="1485" height="885" fetchpriority="high" decoding="async">
           <figcaption class="diagram-caption">
             <span>Figure 1.1: Dual-Mode Operation (User Mode vs Kernel Mode)</span>
             <span class="diagram-source">Source: Standard Computer Science Tutorials</span>
@@ -141,6 +236,34 @@
           </figcaption>
         </figure>
 
+        <!-- Visual Flowchart: System Call Trap Cycle -->
+        <div class="flowchart-container">
+          <div class="flowchart-header">
+            <span class="flowchart-title">Flowchart 1.1: System Call &amp; Dual-Mode Trap Cycle</span>
+            <span class="flowchart-badge">Hardware Flow</span>
+          </div>
+          <div class="flowchart-steps horizontal">
+            <div class="flow-step-box">
+              <span class="flow-step-num">Step 1: User App</span>
+              <span class="flow-step-text">Banking App calls read() in User Space (Mode Bit = 1).</span>
+            </div>
+            <div class="flow-arrow-down horizontal-arrow">-&gt;</div>
+            <div class="flow-step-box">
+              <span class="flow-step-num">Step 2: Trap Gate</span>
+              <span class="flow-step-text">CPU triggers Trap 0x80 interrupt. Mode Bit flips from 1 to 0.</span>
+            </div>
+            <div class="flow-arrow-down horizontal-arrow">-&gt;</div>
+            <div class="flow-step-box">
+              <span class="flow-step-num">Step 3: Kernel Exec</span>
+              <span class="flow-step-text">Kernel executes privileged storage driver to read NVMe disk.</span>
+            </div>
+            <div class="flow-arrow-down horizontal-arrow">-&gt;</div>
+            <div class="flow-step-box">
+              <span class="flow-step-num">Step 4: Safe Return</span>
+              <span class="flow-step-text">Data placed in buffer. Mode Bit flips from 0 to 1. Return to User App.</span>
+            </div>
+          </div>
+        </div>
         <!-- Topic 1.1 -->
         <div class="topic-box">
           <div class="topic-header">
@@ -267,7 +390,7 @@ ssize_t bytes_read = read(fd, buffer, <span class="code-keyword">sizeof</span>(b
 
         <!-- Tutorial Diagram -->
         <figure class="diagram-figure">
-          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Process_states.svg" alt="5-State Process Lifecycle Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Process_states.svg" onerror="this.onerror=null; this.src='assets/diagrams/unit2_process_states.png'" alt="5-State Process Lifecycle Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
           <figcaption class="diagram-caption">
             <span>Figure 2.1: 5-State Process Model (New, Ready, Running, Waiting, Terminated)</span>
             <span class="diagram-source">Source: Standard Computer Science Tutorials</span>
@@ -408,7 +531,7 @@ Both customer payments processed concurrently in 52 ms!</div>
 
         <!-- Tutorial Diagram -->
         <figure class="diagram-figure">
-          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/CPU_block_diagram.svg" alt="CPU Scheduling Gantt Chart Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/CPU_block_diagram.svg" onerror="this.onerror=null; this.src='assets/diagrams/unit3_cpu_scheduling.png'" alt="CPU Scheduling Gantt Chart Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
           <figcaption class="diagram-caption">
             <span>Figure 3.1: CPU Scheduling Comparison (FCFS Convoy Effect vs Round Robin)</span>
             <span class="diagram-source">Source: Standard Computer Science Tutorials</span>
@@ -538,7 +661,7 @@ System responsiveness: Excellent.</div>
 
         <!-- Tutorial Diagram -->
         <figure class="diagram-figure">
-          <img src="assets/diagrams/unit4_deadlock.png" alt="Deadlock Circular Wait Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Process_deadlock.svg" onerror="this.onerror=null; this.src='assets/diagrams/unit4_deadlock.png'" alt="Deadlock Circular Wait Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
           <figcaption class="diagram-caption">
             <span>Figure 4.1: Deadlock Circular Wait &amp; Resource Ordering Solution</span>
             <span class="diagram-source">Source: Standard Computer Science Tutorials</span>
@@ -678,7 +801,7 @@ Result: Circular Wait cycle broken. 100% Deadlock-Free!</div>
 
         <!-- Tutorial Diagram -->
         <figure class="diagram-figure">
-          <img src="assets/diagrams/unit5_paging_tlb.png" alt="Virtual Memory and TLB Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Virtual_memory.svg" onerror="this.onerror=null; this.src='assets/diagrams/unit5_paging_tlb.png'" alt="Virtual Memory and TLB Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
           <figcaption class="diagram-caption">
             <span>Figure 5.1: Virtual Memory Address Translation &amp; TLB Cache Acceleration</span>
             <span class="diagram-source">Source: Standard Computer Science Tutorials</span>
@@ -810,7 +933,7 @@ TLB Coverage: Expanded by 512x! TLB misses dropped to near 0%.</div>
 
         <!-- Tutorial Diagram -->
         <figure class="diagram-figure">
-          <img src="assets/diagrams/unit6_raid_storage.png" alt="RAID Storage Architecture Comparison Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/RAID_0.svg" onerror="this.onerror=null; this.src='assets/diagrams/unit6_raid_storage.png'" alt="RAID Storage Architecture Comparison Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
           <figcaption class="diagram-caption">
             <span>Figure 6.1: RAID Levels (RAID 0, 1, 5, 10) Architecture Comparison</span>
             <span class="diagram-source">Source: Standard Computer Science Tutorials</span>
@@ -940,7 +1063,7 @@ Filesystem                   Inodes  IUsed   IFree IUse% Mounted on
 
         <!-- Tutorial Diagram -->
         <figure class="diagram-figure">
-          <img src="assets/diagrams/unit7_containers_vms.png" alt="Virtual Machines vs Containers Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Containers.svg" onerror="this.onerror=null; this.src='assets/diagrams/unit7_containers_vms.png'" alt="Virtual Machines vs Containers Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
           <figcaption class="diagram-caption">
             <span>Figure 7.1: Virtual Machines (Type-1 Hypervisor) vs Containers (Docker / Podman)</span>
             <span class="diagram-source">Source: Standard Computer Science Tutorials</span>
@@ -1068,7 +1191,7 @@ Quorum: Active (No Split-Brain Risk).</div>
 
         <!-- Tutorial Diagram -->
         <figure class="diagram-figure">
-          <img src="assets/diagrams/unit8_linux_architecture.png" alt="Linux System Architecture Layers Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Linux_kernel_System_Call_Interface_and_glibc.svg" onerror="this.onerror=null; this.src='assets/diagrams/unit8_linux_architecture.png'" alt="Linux System Architecture Layers Diagram" class="diagram-img" width="1485" height="885" loading="lazy" decoding="async">
           <figcaption class="diagram-caption">
             <span>Figure 8.1: Linux Operating System Architecture Layers (User to Hardware)</span>
             <span class="diagram-source">Source: Standard Computer Science Tutorials</span>
@@ -1228,55 +1351,5 @@ All RBI IT Governance checks passed successfully.</div>
   </div>
 
   <!-- =========================================================================
-       iOS MOBILE BOTTOM TAB BAR (VISIBLE ON MOBILE ONLY)
-       ========================================================================= -->
-  <nav class="ios-bottom-bar" aria-label="Mobile Navigation">
-    <div class="ios-tab-inner">
-      <div class="ios-tab-item active" data-tab="units">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-        </svg>
-        <span>Units</span>
-      </div>
-
-      <div class="ios-tab-item" data-tab="quizzes">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M9 11l3 3L22 4"></path>
-          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-        </svg>
-        <span>Quizzes</span>
-      </div>
-
-      <div class="ios-tab-item" data-tab="diagrams">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-          <circle cx="8.5" cy="8.5" r="1.5"></circle>
-          <polyline points="21 15 16 10 5 21"></polyline>
-        </svg>
-        <span>Diagrams</span>
-      </div>
-
-      <div class="ios-tab-item" data-tab="search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-        <span>Search</span>
-      </div>
-
-      <div class="ios-tab-item" data-tab="practice">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-          <polyline points="14 2 14 8 20 8"></polyline>
-          <line x1="16" y1="13" x2="8" y2="13"></line>
-          <line x1="16" y1="17" x2="8" y2="17"></line>
-          <polyline points="10 9 9 9 8 9"></polyline>
-        </svg>
-        <span>Exam Q&amp;A</span>
-      </div>
-    </div>
-  </nav>
-
 </body>
 </html>

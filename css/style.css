@@ -112,7 +112,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding-bottom: 90px; /* Space for mobile tab bar */
+  padding-bottom: 24px;
 }
 
 a {
@@ -161,6 +161,12 @@ button, a, .quiz-opt-btn, .quiz-reveal-btn, .ios-tab-item, .ios-segment-btn {
   z-index: 900;
   background-color: #FFFFFF;
   border-bottom: 1px solid var(--ios-border);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.ios-navbar.header-hidden {
+  transform: translateY(-100%);
 }
 
 .ios-nav-inner {
@@ -247,12 +253,17 @@ button, a, .quiz-opt-btn, .quiz-reveal-btn, .ios-tab-item, .ios-segment-btn {
 .ios-segmented-wrapper {
   background: #FFFFFF;
   border-bottom: 1px solid var(--ios-border);
-  padding: 8px 16px;
+  padding: 6px 16px;
   position: sticky;
-  top: 57px;
+  top: 50px;
   z-index: 850;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  transition: top 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.header-is-hidden .ios-segmented-wrapper {
+  top: 0 !important;
 }
 
 .ios-segmented-wrapper::-webkit-scrollbar {
@@ -1101,7 +1112,7 @@ body.high-yield-active .output-container {
    iOS MOBILE BOTTOM TAB BAR
    ========================================================================== */
 
-.ios-bottom-bar {
+.ios-bottom-bar { display: none !important;
   display: none;
   position: fixed;
   bottom: 0;
@@ -1155,7 +1166,7 @@ body.high-yield-active .output-container {
     padding-bottom: 74px;
   }
 
-  .ios-bottom-bar {
+  .ios-bottom-bar { display: none !important;
     display: block;
   }
 
@@ -1276,3 +1287,188 @@ button, .ios-btn-pill, .ios-segment-btn, .ios-tab-item {
 
 /* Visible focus outline */
 :focus-visible {outline: 2px solid var(--ios-blue); outline-offset: 2px;}
+
+/* ==========================================================================
+   OS MINDMAPS, CYCLES & FLOWCHARTS STYLES (MOBILE-FIRST)
+   ========================================================================== */
+
+.mindmap-master-card {
+  background: #FFFFFF;
+  border: 1px solid var(--ios-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.mindmap-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.mindmap-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+
+.mindmap-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.mindmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.mindmap-pillar-card {
+  background: #F9FAFB;
+  border: 1px solid var(--ios-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  border-top: 4px solid var(--pillar-color, var(--ios-blue));
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.mindmap-pillar-card:hover {
+  background: #FFFFFF;
+}
+
+.pillar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.pillar-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.pillar-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--pillar-bg, #EEF2FF);
+  color: var(--pillar-color, var(--ios-blue));
+}
+
+.pillar-branches {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pillar-branch-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: #334155;
+  line-height: 1.4;
+}
+
+.pillar-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pillar-color, var(--ios-blue));
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+/* Visual Flowchart & Cycle Component */
+.flowchart-container {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--radius-md);
+  padding: 18px;
+  margin: 16px 0;
+}
+
+.flowchart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.flowchart-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0F172A;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.flowchart-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: #E0E7FF;
+  color: #4338CA;
+}
+
+.flowchart-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media (min-width: 768px) {
+  .flowchart-steps.horizontal {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.flow-step-box {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.flow-step-num {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--ios-blue);
+  text-transform: uppercase;
+}
+
+.flow-step-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1E293B;
+  line-height: 1.35;
+}
+
+.flow-arrow-down {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94A3B8;
+  font-weight: bold;
+}
+
+@media (min-width: 768px) {
+  .flow-arrow-down.horizontal-arrow {
+    transform: rotate(-90deg);
+  }
+}
